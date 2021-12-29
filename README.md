@@ -17,7 +17,7 @@
 
 
 ## WiFi Scanner (Desktop)
-[![WiFi Scanner](./bluetooth-scanner/demo_small.png)](./wifi-scanner)
+[![WiFi Scanner](./wifi-scanner/demo_small.png)](./wifi-scanner)
 
 ## Weather App (Liveview) [WIP]
 [![Weather App](./)](./weatherapp)
