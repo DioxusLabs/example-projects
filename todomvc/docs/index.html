@@ -1,0 +1,16 @@
+
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div id="dioxusroot">
+    </div>
+    <!-- Note the usage of `type=module` here as this is an ES6 module -->
+    <script type="module">
+      import init from "./wasm/module.js";
+      init("./wasm/module_bg.wasm");
+    </script>
+  </body>
+</html>

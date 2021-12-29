@@ -1,0 +1,8 @@
+[app]
+name = "dioxus-ios-demo"
+stylized-name = "Dioxus Ios Demo"
+domain = "jonathankelley.com"
+template-pack = "winit"
+
+[apple]
+development-team = "34U4FG9TJ8"
