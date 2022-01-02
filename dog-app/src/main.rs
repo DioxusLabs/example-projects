@@ -34,11 +34,11 @@ fn app(cx: Scope) -> Element {
             ul {
                 {breeds.message.iter().map(|(breed, subbreeds)| rsx!(
                     li {
-                        key: "{breed}"
+                        key: "{breed}",
                         "{breed}"
                         ul {
                             {subbreeds.iter().map(|subbreed| rsx!( li {
-                                key: "{subbreed}"
+                                key: "{subbreed}",
                                 "--- {subbreed}"
                             }))}
                         }
@@ -71,7 +71,16 @@ fn app(cx: Scope) -> Element {
     // });
 
     cx.render(rsx! {
+        // script { src: "https://cdn.tailwindcss.com" }
+        link {
+            rel: "stylesheet",
+            href: "https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css",
+        }
+
+
+
         div { class: "insta-clone",
+
             page_nav(
                 div {
                     input {
@@ -91,7 +100,7 @@ fn app(cx: Scope) -> Element {
                 user_profile()
                 hr { class: "border-gray-500 mt-6"}
                 hr { class: "border-gray-500 w-20 border-t-1 ml-64 border-gray-800"}
-                {posts}
+                posts
             }
         }
     })
@@ -113,9 +122,9 @@ fn page_nav<'a>(cx: Scope<'a>, children: Element<'a>) -> Element {
         nav { class: "bg-white shadow px-48 border-b border-gray-400 sticky top-0 z-50",
             div { class: "max-w-7xl mx-auto px-2 sm:px-4 lg:px-8",
                 div { class: "flex justify-between h-16",
-                    platform_logos()
-                    {children}
-                    hamburger()
+                    platform_logos(),
+                    children,
+                    hamburger(),
                     div { class: "lg:ml-4 lg:flex lg:items-center",
                         profile_menu_items()
                         div { class: "ml-4 relative flex-shrink-0",
@@ -309,12 +318,12 @@ fn platform_logos(cx: Scope) -> Element {
             div { class: "flex-shrink-0 flex items-center",
                 img { class: "block lg:hidden h-8 w-auto",
                     src: "https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png",
-                    srcset: "https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"
+                    srcset: "https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png",
                     alt: "Workflow logo",
                 }
                 img { class: "hidden lg:block h-8 w-auto",
                     src: "https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png",
-                    srcset: "https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"
+                    srcset: "https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png",
                     alt: "Workflow logo",
                 }
             }

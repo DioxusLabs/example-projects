@@ -1,10 +1,5 @@
 use dioxus::prelude::*;
 
-#[wasm_bindgen::prelude::wasm_bindgen(start)]
-pub fn main() {
-    dioxus::web::launch(app);
-}
-
 #[derive(PartialEq)]
 pub enum FilterState {
     All,
@@ -47,17 +42,17 @@ pub fn app(cx: Scope<()>) -> Element {
     };
 
     cx.render(rsx!{
-        section { class: "todoapp"
-            style { {[include_str!("../src/style.css")]} }
+        section { class: "todoapp",
+            style { [include_str!("../src/style.css")] }
             div {
-                header { class: "header"
+                header { class: "header",
                     h1 {"todos"}
                     input {
-                        class: "new-todo"
-                        placeholder: "What needs to be done?"
-                        value: "{draft}"
-                        autofocus: "true"
-                        oninput: move |evt| draft.set(evt.value.clone())
+                        class: "new-todo",
+                        placeholder: "What needs to be done?",
+                        value: "{draft}",
+                        autofocus: "true",
+                        oninput: move |evt| draft.set(evt.value.clone()),
                         onkeydown: move |evt| {
                             if evt.key == "Enter" {
                                 if !draft.is_empty() {
@@ -76,30 +71,35 @@ pub fn app(cx: Scope<()>) -> Element {
                         }
                     }
                 }
-                ul { class: "todo-list"
-                    {filtered_todos.iter().map(|id| rsx!(todo_entry( key: "{id}", id: *id, todos: todos  )))}
+                ul { class: "todo-list",
+                    filtered_todos.iter().map(|id| rsx!(todo_entry( key: "{id}", id: *id, todos: todos  )))
                 }
-                {(!todos.is_empty()).then(|| rsx!(
-                    footer { class: "footer"
-                        span { class: "todo-count" strong {"{items_left} "} span {"{item_text} left"} }
-                        ul { class: "filters"
+                (!todos.is_empty()).then(|| rsx!(
+                    footer { class: "footer",
+                        span { class: "todo-count", 
+                            strong {"{items_left} "} 
+                            span {"{item_text} left"} 
+                        }
+                        ul { class: "filters",
                             li { class: "All", a { onclick: move |_| filter.set(FilterState::All), "All" }}
                             li { class: "Active", a { onclick: move |_| filter.set(FilterState::Active), "Active" }}
                             li { class: "Completed", a { onclick: move |_| filter.set(FilterState::Completed), "Completed" }}
                         }
-                        {(show_clear_completed).then(|| rsx!(
-                            button { class: "clear-completed", onclick: move |_| todos.modify().retain(|_, todo| todo.checked == false),
+                        (show_clear_completed).then(|| rsx!(
+                            button { 
+                                class: "clear-completed", 
+                                onclick: move |_| todos.modify().retain(|_, todo| todo.checked == false),
                                 "Clear completed"
                             }
-                        ))}
+                        ))
                     }
-                ))}
+                ))
             }
         }
-        footer { class: "info"
+        footer { class: "info",
             p {"Double-click to edit a todo"}
-            p { "Created by ", a { "jkelleyrtp", href: "http://github.com/jkelleyrtp/" }}
-            p { "Part of ", a { "TodoMVC", href: "http://todomvc.com" }}
+            p { "Created by ", a {  href: "http://github.com/jkelleyrtp/", "jkelleyrtp" }}
+            p { "Part of ", a { href: "http://todomvc.com", "TodoMVC" }}
         }
     })
 }
@@ -115,20 +115,20 @@ pub fn todo_entry<'a>(cx: Scope<'a, TodoEntryProps<'a>>) -> Element {
     let is_editing = use_state(&cx, || false);
     let completed = if todo.checked { "completed" } else { "" };
 
-    rsx!(cx, li { class: "{completed}"
-        div { class: "view"
-            input { class: "toggle" r#type: "checkbox" id: "cbg-{todo.id}" checked: "{todo.checked}"
+    rsx!(cx, li { class: "{completed}",
+        div { class: "view",
+            input { class: "toggle", r#type: "checkbox", id: "cbg-{todo.id}", checked: "{todo.checked}",
                 onchange: move |evt| {
                     cx.props.todos.modify()[&cx.props.id].checked = evt.value.parse().unwrap();
                 }
             }
-            label { r#for: "cbg-{todo.id}" pointer_events: "none", "{todo.contents}" }
-           {is_editing.then(|| rsx!{
+            label { r#for: "cbg-{todo.id}", pointer_events: "none", "{todo.contents}" }
+           is_editing.then(|| rsx!{
                 input {
-                    value: "{todo.contents}"
+                    value: "{todo.contents}",
                     oninput: move |evt| cx.props.todos.modify()[&cx.props.id].contents = evt.value.clone(),
                 }
-            })}
+            })
         }
     })
 }
