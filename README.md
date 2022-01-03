@@ -1,12 +1,32 @@
 # Example projects with Dioxus
 
+This repository holds the code for a variety of example projects built with Dioxus.
+
+Each project has information on how to build/deploy.
+
+If you want to add your own, feel free to make a PR!
+
+
+Current Projects:
+
+
+| Example                          | Platform     | Creator     |
+| -------------------------------- | ------------ | ----------- |
+| [TodoMVC](./todomvc)             | Web, Desktop | @jkelleyrtp |
+| [TodoMVC](./ios_demo)            | iOS          | @jkelleyrtp |
+| [File Explorer](./file-explorer) | Desktop      | @jkelleyrtp |
+| [E-Commerce](./ecommerce-site)   | LiveView     | @jkelleyrtp |
+| [WiFi Scanner](./wifi-scanner)   | Desktop      | @jkelleyrtp |
+| [Weather App (WIP](./weatherapp) | Web          | @jkelleyrtp |
+| [Dog Search Engine](./dog-app)   | Web/Desktop  | @jkelleyrtp |
+
 
 ## TODOMVC (Desktop, Web)
 
 [![TodoMVC](./todomvc/example.png)](./todomvc)
 
 ## iOS TODOMVC 
-[![TodoMVC Mobile](./ios_demo/assets/screenshot.jpeg)](./ios_demo)
+[![TodoMVC Mobile](./ios_demo/assets/screenshot_smaller.jpeg)](./ios_demo)
 
 ## File Explorer (Desktop) 
 [![File Explorer](./file-explorer/image.png)](./file-explorer)
