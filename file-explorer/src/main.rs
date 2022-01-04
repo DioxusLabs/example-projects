@@ -19,52 +19,44 @@ fn main() {
 }
 
 static App: Component<()> = |cx| {
-    let file_manager = use_ref(&cx, || Files::new());
-    let files = file_manager.read();
-
-    let file_list = files.path_names.iter().enumerate().map(|(dir_id, path)| {
-        let path_end = path.split('/').last().unwrap_or(path.as_str());
-        let icon_type = if path_end.contains(".") {
-            "description"
-        } else {
-            "folder"
-        };
-        rsx! (
-            div { class: "folder",
-                key: "{path}"
-                i { class: "material-icons",
-                    "{icon_type}"
-                    onclick: move |_| file_manager.write().enter_dir(dir_id),
-                    p { class: "cooltip", "0 folders / 0 files" }
-                }
-                h1 { "{path_end}" }
-            }
-        )
-    });
-
-    let err_disp = files.err.as_ref().map(|err| {
-        rsx! (
-            div {
-                code {"{err}"}
-                button {"x", onclick: move |_| file_manager.write().clear_err() }
-            }
-        )
-    });
-
-    let current_dir = files.current();
+    let files = use_ref(&cx, || Files::new());
 
     rsx!(cx, div {
-        link { href:"https://fonts.googleapis.com/icon?family=Material+Icons" rel:"stylesheet" }
-        style { {[include_str!("./style.css")]} }
+        link { href:"https://fonts.googleapis.com/icon?family=Material+Icons", rel:"stylesheet" }
+        style { [include_str!("./style.css")] }
         header {
             i { class: "material-icons icon-menu", "menu" }
-            h1 { "Files: {current_dir}" }
+            h1 { "Files: " [files.read().current()] }
             span { }
-            i { class: "material-icons", "logout", onclick: move |_| file_manager.write().go_up() }
+            i { class: "material-icons", onclick: move |_| files.write().go_up(), "logout" }
         }
         main {
-            {file_list}
-            {err_disp}
+            files.read().path_names.iter().enumerate().map(|(dir_id, path)| {
+                let path_end = path.split('/').last().unwrap_or(path.as_str());
+                let icon_type = if path_end.contains(".") {
+                    "description"
+                } else {
+                    "folder"
+                };
+                rsx! (
+                    div { class: "folder", key: "{path}",
+                        i { class: "material-icons",
+                            onclick: move |_| files.write().enter_dir(dir_id),
+                            "{icon_type}"
+                            p { class: "cooltip", "0 folders / 0 files" }
+                        }
+                        h1 { "{path_end}" }
+                    }
+                )
+            })
+            files.read().err.as_ref().map(|err| {
+                rsx! (
+                    div {
+                        code { "{err}" }
+                        button { onclick: move |_| files.write().clear_err(), "x" }
+                    }
+                )
+            })
         }
 
     })

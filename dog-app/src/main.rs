@@ -20,7 +20,7 @@ fn app(cx: Scope) -> Element {
     let search_input = use_state(&cx, || "".to_string());
 
     // when the component loads, we want to fetch the dog list
-    let (available_breeds, _) = use_future(&cx, || async move {
+    let fut = use_future(&cx, || async move {
         reqwest::get("https://dog.ceo/api/breeds/list/all")
             .await
             .unwrap()
@@ -28,47 +28,6 @@ fn app(cx: Scope) -> Element {
             .await
             .unwrap()
     });
-
-    let posts = if let Some(breeds) = available_breeds {
-        rsx!(cx, div {
-            ul {
-                {breeds.message.iter().map(|(breed, subbreeds)| rsx!(
-                    li {
-                        key: "{breed}",
-                        "{breed}"
-                        ul {
-                            {subbreeds.iter().map(|subbreed| rsx!( li {
-                                key: "{subbreed}",
-                                "--- {subbreed}"
-                            }))}
-                        }
-                    }
-                ))}
-            }
-        })
-    } else {
-        rsx!(cx, "no dogs")
-    };
-
-    // let posts = vec![()].into_iter().map(|post: ()| {
-    //     rsx!(
-    //         div { class: "flex pt-4",
-    //             post_thumbnail()
-    //             post_thumbnail()
-    //             post_thumbnail()
-    //         }
-    //         div { class: "flex pt-4",
-    //             post_thumbnail()
-    //             post_thumbnail()
-    //             post_thumbnail()
-    //         }
-    //         div { class: "flex pt-4",
-    //             post_thumbnail()
-    //             post_thumbnail()
-    //             post_thumbnail()
-    //         }
-    //     )
-    // });
 
     cx.render(rsx! {
         // script { src: "https://cdn.tailwindcss.com" }
@@ -100,7 +59,27 @@ fn app(cx: Scope) -> Element {
                 user_profile()
                 hr { class: "border-gray-500 mt-6"}
                 hr { class: "border-gray-500 w-20 border-t-1 ml-64 border-gray-800"}
-                posts
+
+                if let Some(breeds) = fut.value() {
+                    rsx!(cx, div {
+                        ul {
+                            {breeds.message.iter().map(|(breed, subbreeds)| rsx!(
+                                li {
+                                    key: "{breed}",
+                                    "{breed}"
+                                    ul {
+                                        {subbreeds.iter().map(|subbreed| rsx!( li {
+                                            key: "{subbreed}",
+                                            "--- {subbreed}"
+                                        }))}
+                                    }
+                                }
+                            ))}
+                        }
+                    })
+                } else {
+                    rsx!(cx, "no dogs")
+                }
             }
         }
     })
