@@ -41,15 +41,15 @@ struct AppProps {
 }
 
 fn app(cx: Scope<AppProps>) -> Element {
-    let list = use_state(&cx, || vec![]);
+    let (list, set_list) = use_state(&cx, || vec![]);
 
     let scan = use_coroutine(&cx, || {
         let receiver = cx.props.receiver.take();
-        let list = list.for_async();
+        let list = set_list.to_owned();
         async move {
             if let Some(mut receiver) = receiver {
                 while let Some(msg) = receiver.next().await {
-                    list.set(msg);
+                    set_list(msg);
                 }
             }
         }
@@ -65,7 +65,7 @@ fn app(cx: Scope<AppProps>) -> Element {
                         onclick: move |_| {
                             // todo: wire up the coroutine properly and add a loading state
                             scan.start();
-                            list.set(wifiscanner::scan().unwrap());
+                            set_list(wifiscanner::scan().unwrap());
                         },
                         "scan"
                     }

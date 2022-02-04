@@ -17,7 +17,7 @@ pub struct DogList {
 }
 
 fn app(cx: Scope) -> Element {
-    let search_input = use_state(&cx, || "".to_string());
+    let (search_input, set_search_input) = use_state(&cx, || "".to_string());
 
     // when the component loads, we want to fetch the dog list
     let fut = use_future(&cx, || async move {
@@ -46,7 +46,7 @@ fn app(cx: Scope) -> Element {
                         "type": "text",
                         value: "{search_input}",
                         placeholder: "Search for doggo",
-                        oninput: move |evt| search_input.set(evt.value.clone()),
+                        oninput: move |evt| set_search_input(evt.value.clone()),
                         onkeydown: move |evt| {
                             if evt.key == "Enter" {
                                 // search_for_dogs.start();

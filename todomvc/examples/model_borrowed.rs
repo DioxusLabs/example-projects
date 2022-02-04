@@ -97,16 +97,16 @@ static APP: Component<()> = |cx| {
 
     cx.render(rsx!{
         section {
-            class: "todoapp"
-            style { {[include_str!("../src/style.css")]} }
+            class: "todoapp",
+            style { [include_str!("../src/style.css")] }
             div {
                 header {
-                    class: "header"
+                    class: "header",
                     h1 {"todos"}
                     input {
-                        class: "new-todo"
-                        placeholder: "What needs to be done?"
-                        value: "{draft}"
+                        class: "new-todo",
+                        placeholder: "What needs to be done?",
+                        value: "{draft}",
                         oninput: move |evt| todos.write().set_draft(&evt.value),
                         onkeydown: move |evt| {
                             if evt.key == "Enter" {
@@ -115,21 +115,21 @@ static APP: Component<()> = |cx| {
                         }
                     }
                 }
-                ul { class: "todo-list"
-                    {todo_list}
+                ul { class: "todo-list",
+                    todo_list
                 }
                 {(!todos.read().is_empty()).then(|| rsx!(
-                    footer { class: "footer"
-                        span { class: "todo-count" strong {"{items_left} "} span {"{item_text} left"} }
-                        ul { class: "filters"
+                    footer { class: "footer",
+                        span { class: "todo-count", strong {"{items_left} "} span {"{item_text} left"} }
+                        ul { class: "filters",
                             li { class: "All", a { onclick: move |_| todos.write().set_filter(FilterState::All), "All" }}
                             li { class: "Active", a { onclick: move |_| todos.write().set_filter(FilterState::Active), "Active" }}
                             li { class: "Completed", a { onclick: move |_| todos.write().set_filter(FilterState::Completed), "Completed" }}
                         }
                         {(show_clear_completed).then(|| rsx!(
                             button {
-                                class: "clear-completed"
-                                onclick: move |_| todos.write().clear_completed()
+                                class: "clear-completed",
+                                onclick: move |_| todos.write().clear_completed(),
                                 "Clear completed"
                             }
                         ))}
@@ -137,10 +137,10 @@ static APP: Component<()> = |cx| {
                 ))}
             }
         }
-        footer { class: "info"
+        footer { class: "info",
             p {"Double-click to edit a todo"}
-            p { "Created by ", a { "jkelleyrtp", href: "http://github.com/jkelleyrtp/" }}
-            p { "Part of ", a { "TodoMVC", href: "http://todomvc.com" }}
+            p { "Created by ", a {href: "http://github.com/jkelleyrtp/", "jkelleyrtp" }}
+            p { "Part of ", a { href: "http://todomvc.com", "TodoMVC" }}
         }
     })
 };
@@ -148,26 +148,26 @@ static APP: Component<()> = |cx| {
 #[derive(Props)]
 pub struct TodoEntryProps<'a> {
     id: u32,
-    todos: UseRef<'a, TodoModel>,
+    todos: &'a UseRef<TodoModel>,
 }
 
 pub fn TodoEntry<'a>(cx: Scope<'a, TodoEntryProps<'a>>) -> Element {
     let _todos = cx.props.todos.read();
     let todo = _todos.todos.get(&cx.props.id)?;
 
-    let is_editing = use_state(&cx, || false);
+    let (is_editing, _set_is_editing) = use_state(&cx, || false);
     let completed = if todo.checked { "completed" } else { "" };
 
     cx.render(rsx!{
         li {
-            class: "{completed}"
+            class: "{completed}",
             div {
-                class: "view"
+                class: "view",
                 input {
-                    class: "toggle"
-                    r#type: "checkbox"
-                    id: "cbg-{todo.id}"
-                    checked: "{todo.checked}"
+                    class: "toggle",
+                    r#type: "checkbox",
+                    id: "cbg-{todo.id}",
+                    checked: "{todo.checked}",
                     onchange: move |e| {
                         log::info!("setting checked {:?}", &cx.props.id);
                         cx.props.todos.write().todos.get_mut(&cx.props.id).map(|todo| todo.checked = e.value.parse().unwrap());
@@ -175,14 +175,14 @@ pub fn TodoEntry<'a>(cx: Scope<'a, TodoEntryProps<'a>>) -> Element {
                 }
 
                 label {
-                    r#for: "cbg-{todo.id}"
-                    pointer_events: "none"
+                    r#for: "cbg-{todo.id}",
+                    pointer_events: "none",
                     "{todo.contents}"
                 }
 
                {is_editing.then(|| rsx!{
                     input {
-                        value: "{todo.contents}"
+                        value: "{todo.contents}",
                         oninput: move |evt| {
                             cx.props.todos.write().todos.get_mut(&cx.props.id).map(|todo| todo.contents = evt.value.clone());
                         },
