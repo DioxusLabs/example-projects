@@ -7,5 +7,5 @@ edition = "2018"
 
 [dependencies]
 axum = "0.4.3"
-dioxus = { path = "../../../dioxus", features = ["ssr"] }
+dioxus = { features = ["ssr"], version = "0.1.8" }
 tokio = { version = "1.15.0", features = ["full"] }
