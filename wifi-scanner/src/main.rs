@@ -45,7 +45,7 @@ fn app(cx: Scope<AppProps>) -> Element {
 
     let scan = use_coroutine(&cx, || {
         let receiver = cx.props.receiver.take();
-        let list = set_list.to_owned();
+        let set_list = set_list.to_owned();
         async move {
             if let Some(mut receiver) = receiver {
                 while let Some(msg) = receiver.next().await {
