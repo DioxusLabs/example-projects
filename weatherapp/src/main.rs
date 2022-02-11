@@ -6,6 +6,7 @@ fn main() {
 
 fn app(cx: Scope) -> Element {
     cx.render(rsx!(
+        link { rel: "stylesheet", href: "https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" },
         div { class: "mx-auto p-4 bg-gray-100 h-screen flex justify-center",
             div { class: "flex items-center justify-center flex-col",
                 search_box()

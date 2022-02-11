@@ -56,6 +56,7 @@ fn app(cx: Scope<AppProps>) -> Element {
     });
 
     cx.render(rsx!(
+        link { rel: "stylesheet", href: "https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" },
         div {
             div { class: "py-8 px-6",
                 div { class: "container px-4 mx-auto",
