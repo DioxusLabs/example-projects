@@ -10,15 +10,16 @@ If you want to add your own, feel free to make a PR!
 Current Projects:
 
 
-| Example                          | Platform     | Creator     |
-| -------------------------------- | ------------ | ----------- |
-| [TodoMVC](./todomvc)             | Web, Desktop | @jkelleyrtp |
-| [TodoMVC](./ios_demo)            | iOS          | @jkelleyrtp |
-| [File Explorer](./file-explorer) | Desktop      | @jkelleyrtp |
-| [E-Commerce](./ecommerce-site)   | LiveView     | @jkelleyrtp |
-| [WiFi Scanner](./wifi-scanner)   | Desktop      | @jkelleyrtp |
-| [Weather App (WIP](./weatherapp) | Web          | @jkelleyrtp |
-| [Dog Search Engine](./dog-app)   | Web/Desktop  | @jkelleyrtp |
+| Example                                       | Platform     | Creator     |
+| --------------------------------------------- | ------------ | ----------- |
+| [TodoMVC](./todomvc)                          | Web, Desktop | @jkelleyrtp |
+| [TodoMVC](./ios_demo)                         | iOS          | @jkelleyrtp |
+| [File Explorer](./file-explorer)              | Desktop      | @jkelleyrtp |
+| [E-Commerce](./ecommerce-site)                | LiveView     | @jkelleyrtp |
+| [WiFi Scanner](./wifi-scanner)                | Desktop      | @jkelleyrtp |
+| [Weather App (WIP](./weatherapp)              | Web          | @jkelleyrtp |
+| [Dog Search Engine](./dog-app)                | Web/Desktop  | @jkelleyrtp |
+| [Router Book Project](./router-book-project/) | Web          | @DogeDark   |
 
 
 ## TODOMVC (Desktop, Web)
