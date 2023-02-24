@@ -1,14 +1,12 @@
 [package]
 name = "todomvc"
 version = "0.1.0"
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.1.6", features = ["web"] }
-wasm-logger = "0.2.0"
-wasm-bindgen = "0.2.78"
-log = "0.4.14"
-console_error_panic_hook = "*"
+dioxus = "0.3.2"
+dioxus-web = "0.3.1"
 im-rc = "15.0.0"
+keyboard-types = "0.6.2"
