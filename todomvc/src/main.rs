@@ -4,5 +4,5 @@
 use todomvc::*;
 
 pub fn main() {
-    dioxus::web::launch(app);
+    dioxus_web::launch(app);
 }

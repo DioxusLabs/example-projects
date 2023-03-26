@@ -1,18 +1,10 @@
+#![allow(non_snake_case)]
+
 use dioxus::prelude::*;
 use rand::prelude::*;
 
 fn main() {
-    // for performance reasons, we want to cache these strings on the edge of js/rust boundary
-    for &name in ADJECTIVES
-        .iter()
-        .chain(NOUNS.iter())
-        .chain(COLOURS.iter())
-        .chain(OTHER.iter())
-    {
-        wasm_bindgen::intern(name);
-    }
-
-    dioxus::web::launch(app);
+    dioxus_web::launch(app);
 }
 
 #[derive(Clone, PartialEq)]
@@ -24,22 +16,24 @@ struct Label {
 impl Label {
     fn new_list(num: usize) -> Vec<Self> {
         let mut rng = SmallRng::from_entropy();
-        (0..num)
-            .map(|key| Label {
-                key,
+        let mut labels = Vec::with_capacity(num);
+        for x in 0..num {
+            labels.push(Label {
+                key: x,
                 labels: [
                     ADJECTIVES.choose(&mut rng).unwrap(),
                     COLOURS.choose(&mut rng).unwrap(),
                     NOUNS.choose(&mut rng).unwrap(),
                 ],
-            })
-            .collect()
+            });
+        }
+        labels
     }
 }
 
 fn app(cx: Scope) -> Element {
-    let items = use_ref(&cx, Vec::new);
-    let (selected, set_selected) = use_state(&cx, || None);
+    let items = use_ref(cx, Vec::new);
+    let selected = use_state(cx, || None);
 
     cx.render(rsx! {
         div { class: "container",
@@ -74,20 +68,18 @@ fn app(cx: Scope) -> Element {
                 tbody {
                     items.read().iter().enumerate().map(|(id, item)| {
                         let is_in_danger = if (*selected).map(|s| s == id).unwrap_or(false) {"danger"} else {""};
-                        cx.render(rsx!{
-                            tr { class: "{is_in_danger}", key: "{id}",
-                                td { class: "col-md-1" }
-                                td { class: "col-md-1", "{item.key}" }
-                                td { class: "col-md-1", onclick: move |_| set_selected(Some(id)),
-                                    a { class: "lbl", item.labels }
-                                }
-                                td { class: "col-md-1",
-                                    a { class: "remove", onclick: move |_| { items.write().remove(id); },
-                                        span { class: "glyphicon glyphicon-remove remove", aria_hidden: "true" }
-                                    }
-                                }
-                                td { class: "col-md-6" }
+                        rsx!(tr { class: "{is_in_danger}",
+                            td { class:"col-md-1" }
+                            td { class:"col-md-1", "{item.key}" }
+                            td { class:"col-md-1", onclick: move |_| selected.set(Some(id)),
+                                a { class: "lbl", "{item.labels[0]}{item.labels[1]}{item.labels[2]}" }
                             }
+                            td { class: "col-md-1",
+                                a { class: "remove", onclick: move |_| { items.write().remove(id); },
+                                    span { class: "glyphicon glyphicon-remove remove", aria_hidden: "true" }
+                                }
+                            }
+                            td { class: "col-md-6" }
                         })
                     })
                 }
@@ -157,5 +149,3 @@ static NOUNS: &[&str] = &[
     "table", "chair", "house", "bbq", "desk", "car", "pony", "cookie", "sandwich", "burger",
     "pizza", "mouse", "keyboard",
 ];
-
-static OTHER: &[&str] = &["col-md-1", "lbl", "glyphicon glyphicon-remove remove"];

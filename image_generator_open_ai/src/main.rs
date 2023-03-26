@@ -5,7 +5,7 @@ use serde_json::json;
 
 #[tokio::main]
 async fn main() {
-    dioxus::desktop::launch(app)
+    dioxus_desktop::launch(app)
 }
 
 fn app(cx: Scope) -> Element {

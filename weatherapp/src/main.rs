@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 fn main() {
-    dioxus::web::launch(app);
+    dioxus_web::launch(app);
 }
 
 fn app(cx: Scope) -> Element {
@@ -9,14 +9,14 @@ fn app(cx: Scope) -> Element {
         link { rel: "stylesheet", href: "https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" },
         div { class: "mx-auto p-4 bg-gray-100 h-screen flex justify-center",
             div { class: "flex items-center justify-center flex-col",
-                search_box()
+                search_box{}
                 div { class: "flex flex-wrap w-full px-2",
                     div { class: "bg-gray-900 text-white relative min-w-0 break-words rounded-lg overflow-hidden shadow-sm mb-4 w-full bg-white dark:bg-gray-600",
                         div { class: "px-6 py-6 relative",
-                            country_info()
-                            country_data()
+                            country_info{}
+                            country_data{}
                         }
-                        week_weather()
+                        week_weather{}
                     }
                 }
             }

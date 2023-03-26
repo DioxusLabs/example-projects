@@ -13,7 +13,8 @@ path = "gen/bin/desktop.rs"
 
 [dependencies]
 mobile-entry-point = "0.1.0"
-dioxus = { features = ["mobile"], version = "0.1.8" }
+dioxus = { version = "0.3" }
+dioxus-mobile = { version = "0.3" }
 simple_logger = "1.11.0"
 
 

@@ -9,7 +9,8 @@ edition = "2018"
 anyhow = "1.0.52"
 pretty_env_logger = "0.4.0"
 tokio = { version = "1.12.0", features = ["full"] }
-dioxus = { version = "0.1.8", features = ["desktop"] }
+dioxus = { version = "0.3" }
+dioxus-desktop = { version = "0.3" }
 wifiscanner = "0.5.1"
 futures-channel = "0.3.19"
 futures = "0.3.19"
