@@ -12,4 +12,5 @@ wasm-bindgen = { version = "0.2.79", features = ["enable-interning"] }
 
 # for local iteration
 # dioxus = { path = "../../../dioxus", features = ["web"] }
-dioxus = { version = "0.1.8", features = ["web"] }
+dioxus = { version = "0.3" }
+dioxus-web = { version = "0.3" }

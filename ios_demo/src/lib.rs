@@ -4,7 +4,7 @@ use mobile_entry_point::mobile_entry_point;
 #[mobile_entry_point]
 fn main() {
     simple_logger::SimpleLogger::new().init().unwrap();
-    dioxus::desktop::launch(App, |c| c);
+    dioxus_desktop::launch(App);
 }
 
 use std::collections::HashMap;
@@ -26,9 +26,9 @@ pub type Todos = HashMap<u32, TodoItem>;
 
 use dioxus::prelude::*;
 
-pub static App: FC<()> = |(cx, _)| {
+pub fn App(scope: Scope)->Element{
     // Share our TodoList to the todos themselves
-    use_provide_state(cx, || Todos::new());
+    use_shared_state_provider(cx, || Todos::new());
 
     // Save state for the draft, filter
     let mut draft = use_state(cx, || "".to_string());
@@ -123,18 +123,18 @@ pub static App: FC<()> = |(cx, _)| {
             p { "Part of ", a { "TodoMVC", href: "http://todomvc.com" }}
         }
     })
-};
+}
 
 #[derive(PartialEq, Props)]
 pub struct TodoEntryProps {
     id: u32,
 }
 
-static TodoEntry: FC<TodoEntryProps> = |(cx, props)| {
-    let todos = use_shared_state::<Todos>(cx)?;
+fn TodoEntry(cx: Scope<TodoEntryProps>) {
+    let todos = use_shared_state::<Todos>(cx);
 
     let _todos = todos.read();
-    let todo = _todos.get(&props.id)?;
+    let todo = _todos.get(&props.id);
 
     let is_editing = use_state(cx, || false);
     let completed = if todo.checked { "completed" } else { "" };
@@ -166,4 +166,4 @@ static TodoEntry: FC<TodoEntryProps> = |(cx, props)| {
             }
         }
     })
-};
+}

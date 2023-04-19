@@ -27,7 +27,7 @@ async fn main() {
 
 // Just render a simple page directly from the request
 async fn root() -> Html<String> {
-    Html(dioxus::ssr::render_lazy(rsx! {
+    Html(dioxus_ssr::render_lazy(rsx! {
         div {
             h1 { "hello world!" }
             p { "goodbye world!" }
@@ -47,13 +47,13 @@ async fn dioxusapp() -> Html<String> {
             }
             body {
                 div {
-                    components::nav::nav()
-                    components::product_page::product_page()
+                    components::nav::nav{}
+                    components::product_page::product_page{}
                 }
             }
         ))
     }
     let mut app = VirtualDom::new(dioxusapp);
     let _ = app.rebuild();
-    Html(dioxus::ssr::render_vdom(&app))
+    Html(dioxus_ssr::render(&app))
 }

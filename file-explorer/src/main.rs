@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 //! Example: File Explorer
 //! -------------------------
 //!
@@ -6,34 +7,34 @@
 //! This example is interesting because it's mixing filesystem operations and GUI, which is typically hard for UI to do.
 
 use dioxus::prelude::*;
+use dioxus_desktop::{Config, WindowBuilder};
 
 fn main() {
     // simple_logger::init_with_level(log::Level::Debug).unwrap();
-    dioxus::desktop::launch_cfg(App, |c| {
-        c.with_window(|w| {
-            w.with_resizable(true).with_inner_size(
-                dioxus::desktop::wry::application::dpi::LogicalSize::new(400.0, 800.0),
-            )
-        })
-    });
+    dioxus_desktop::launch_cfg(
+        App,
+        Config::default().with_window(WindowBuilder::new().with_resizable(true).with_inner_size(
+            dioxus_desktop::wry::application::dpi::LogicalSize::new(400.0, 800.0),
+        )),
+    );
 }
 
-static App: Component<()> = |cx| {
-    let files = use_ref(&cx, || Files::new());
+fn App(cx: Scope) -> Element {
+    let files = use_ref(cx, Files::new);
 
-    rsx!(cx, div {
+    render!(div {
         link { href:"https://fonts.googleapis.com/icon?family=Material+Icons", rel:"stylesheet" }
-        style { [include_str!("./style.css")] }
+        style { include_str!("./style.css") }
         header {
             i { class: "material-icons icon-menu", "menu" }
-            h1 { "Files: " [files.read().current()] }
+            h1 { "Files: " "{files.read().current()}" }
             span { }
             i { class: "material-icons", onclick: move |_| files.write().go_up(), "logout" }
         }
         main {
             files.read().path_names.iter().enumerate().map(|(dir_id, path)| {
                 let path_end = path.split('/').last().unwrap_or(path.as_str());
-                let icon_type = if path_end.contains(".") {
+                let icon_type = if path_end.contains('.') {
                     "description"
                 } else {
                     "folder"
@@ -60,7 +61,7 @@ static App: Component<()> = |cx| {
         }
 
     })
-};
+}
 
 struct Files {
     path_stack: Vec<String>,

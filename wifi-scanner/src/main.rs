@@ -1,4 +1,5 @@
 use dioxus::prelude::*;
+use dioxus_desktop::Config;
 use futures::StreamExt;
 use futures_channel::mpsc::{unbounded, UnboundedReceiver, UnboundedSender};
 use std::cell::Cell;
@@ -10,19 +11,19 @@ fn main() {
     let other = sender.clone();
 
     // launch our initial background scan in a thread
-    std::thread::spawn( move || {
+    std::thread::spawn(move || {
         let _ = other.unbounded_send(Status::Scanning);
         let _ = other.unbounded_send(perform_scan());
     });
 
     // launch our app on the current thread - important because we spawn a window
-    dioxus::desktop::launch_with_props(
+    dioxus_desktop::launch_with_props(
         app,
         AppProps {
             sender: Cell::new(Some(sender)),
             receiver: Cell::new(Some(receiver)),
         },
-        |c| c,
+        Config::default(),
     )
 }
 
@@ -41,7 +42,7 @@ fn perform_scan() -> Status {
 enum Status {
     NoneFound,
     Scanning,
-    Found(Vec<Wifi>)
+    Found(Vec<Wifi>),
 }
 
 struct AppProps {
@@ -50,15 +51,15 @@ struct AppProps {
 }
 
 fn app(cx: Scope<AppProps>) -> Element {
-    let (status, set_list) = use_state(&cx, || Status::NoneFound);
+    let status = use_state(cx, || Status::NoneFound);
 
-    let _ = use_coroutine(&cx, || {
+    let _ = use_coroutine(&cx, |_| {
         let receiver = cx.props.receiver.take();
-        let set_list = set_list.to_owned();
+        let status = status.to_owned();
         async move {
             if let Some(mut receiver) = receiver {
                 while let Some(msg) = receiver.next().await {
-                    set_list(msg);
+                    status.set(msg);
                 }
             }
         }

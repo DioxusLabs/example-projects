@@ -1,13 +1,18 @@
+#![allow(non_snake_case)]
 //! Instagram for doggo breeds
 
-use std::{collections::HashMap, iter::from_fn};
+use std::collections::HashMap;
 
-use dioxus::prelude::*;
+use dioxus::{html::input_data::keyboard_types::Key, prelude::*};
+use dioxus_desktop::{Config, WindowBuilder};
 use serde::{Deserialize, Serialize};
 mod models;
 
 fn main() {
-    dioxus::desktop::launch_cfg(app, |c| c.with_window(|c| c.with_maximized(true)))
+    dioxus_desktop::launch_cfg(
+        app,
+        Config::default().with_window(WindowBuilder::new().with_maximized(true)),
+    )
 }
 
 #[derive(Serialize, Deserialize)]
@@ -17,10 +22,10 @@ pub struct DogList {
 }
 
 fn app(cx: Scope) -> Element {
-    let (search_input, set_search_input) = use_state(&cx, || "".to_string());
+    let search_input = use_state(cx, String::new);
 
     // when the component loads, we want to fetch the dog list
-    let fut = use_future(&cx, || async move {
+    let fut = use_future!(cx, |()| async move {
         reqwest::get("https://dog.ceo/api/breeds/list/all")
             .await
             .unwrap()
@@ -39,46 +44,54 @@ fn app(cx: Scope) -> Element {
 
 
         div { class: "insta-clone",
-
-            page_nav(
+            page_nav {
                 div {
                     input {
                         "type": "text",
                         value: "{search_input}",
                         placeholder: "Search for doggo",
-                        oninput: move |evt| set_search_input(evt.value.clone()),
+                        oninput: move |evt| search_input.set(evt.value.clone()),
                         onkeydown: move |evt| {
-                            if evt.key == "Enter" {
+                            if evt.key() == Key::Enter {
                                 // search_for_dogs.start();
                             }
                         }
                     }
                 }
-            )
+            }
             div { class: "bg-gray-100 h-auto px-96 relative",
-                user_profile()
+                user_profile {}
                 hr { class: "border-gray-500 mt-6"}
                 hr { class: "border-gray-500 w-20 border-t-1 ml-64 border-gray-800"}
 
                 if let Some(breeds) = fut.value() {
-                    rsx!(cx, div {
-                        ul {
-                            {breeds.message.iter().map(|(breed, subbreeds)| rsx!(
-                                li {
-                                    key: "{breed}",
-                                    "{breed}"
-                                    ul {
-                                        {subbreeds.iter().map(|subbreed| rsx!( li {
-                                            key: "{subbreed}",
-                                            "--- {subbreed}"
-                                        }))}
+                    let current_search = search_input.get();
+                    rsx!{
+                        div {
+                            ul {
+                                breeds.message.iter().filter_map(|(breed, subbreeds)| {
+                                    if current_search.is_empty() || breed.contains(current_search) {
+                                        Some(rsx! {
+                                            li {
+                                                key: "{breed}",
+                                                "{breed}"
+                                                ul {
+                                                    {subbreeds.iter().map(|subbreed| rsx!( li {
+                                                        key: "{subbreed}",
+                                                        "--- {subbreed}"
+                                                    }))}
+                                                }
+                                            }
+                                        })
+                                    } else {
+                                        None
                                     }
-                                }
-                            ))}
+                                })
+                            }
                         }
-                    })
+                    }
                 } else {
-                    rsx!(cx, "no dogs")
+                    rsx!("no dogs")
                 }
             }
         }
@@ -101,11 +114,11 @@ fn page_nav<'a>(cx: Scope<'a>, children: Element<'a>) -> Element {
         nav { class: "bg-white shadow px-48 border-b border-gray-400 sticky top-0 z-50",
             div { class: "max-w-7xl mx-auto px-2 sm:px-4 lg:px-8",
                 div { class: "flex justify-between h-16",
-                    platform_logos(),
-                    children,
-                    hamburger(),
+                    platform_logos{}
+                    children
+                    Hamburger{}
                     div { class: "lg:ml-4 lg:flex lg:items-center",
-                        profile_menu_items()
+                        profile_menu_items{}
                         div { class: "ml-4 relative flex-shrink-0",
                             button { class: "flex rounded-full border-gray-700 transition duration-150 ease-in-out",
                                 id: "user-menu",
@@ -215,7 +228,7 @@ fn search_results(cx: Scope) -> Element {
         }
     ));
 
-    rsx!(cx,
+    render!(
         div { class: "",
             div { class: "",
                 aria_hidden: "false",
@@ -292,7 +305,7 @@ fn user_profile(cx: Scope) -> Element {
 }
 
 fn platform_logos(cx: Scope) -> Element {
-    rsx!(cx,
+    render!(
         div { class: "flex px-2 lg:px-0",
             div { class: "flex-shrink-0 flex items-center",
                 img { class: "block lg:hidden h-8 w-auto",
@@ -310,8 +323,8 @@ fn platform_logos(cx: Scope) -> Element {
     )
 }
 
-fn hamburger(cx: Scope) -> Element {
-    rsx!(cx,
+fn Hamburger(cx: Scope) -> Element {
+    render!(
         div { class: "flex items-center lg:hidden",
             button { class: "inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out",
                 aria_expanded: "false",
@@ -344,7 +357,7 @@ fn hamburger(cx: Scope) -> Element {
 }
 
 fn profile_menu_items(cx: Scope) -> Element {
-    rsx!(cx,
+    render!(
         button { class: "flex-shrink-0 p-1 border-transparent text-gray-700 rounded-full hover:text-gray-600 focus:outline-none focus:text-gray-600 transition duration-150 ease-in-out",
             "aria_label": "Notifications",
             svg { class: "h-6 w-6",

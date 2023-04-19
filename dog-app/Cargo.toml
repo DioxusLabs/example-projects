@@ -12,7 +12,8 @@ keywords = ["dom", "ui", "gui", "react", "wasm"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.1.8", features = ["desktop"] }
+dioxus = { version = "0.3" }
+dioxus-desktop = { version = "0.3" }
 reqwest = { version = "0.11.8", features = ["json"] }
 serde = { version = "1.0.132", features = ["derive"] }
 
