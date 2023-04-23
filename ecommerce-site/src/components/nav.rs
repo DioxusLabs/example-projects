@@ -6,37 +6,37 @@ pub fn nav(cx: Scope) -> Element {
             nav { class: "flex justify-between border-b",
                 div { class: "px-12 py-8 flex w-full items-center",
                     a { class: "hidden xl:block mr-16",
-                        href: "#",
-                        icons::icon_0 {}
+                        href: "/",
+                        icons::cart_icon {}
                     }
                     ul { class: "hidden xl:flex font-semibold font-heading",
                         li { class: "mr-12",
                             a { class: "hover:text-gray-600",
-                                href: "#",
+                                href: "/",
                                 "Category"
                             }
                         }
                         li { class: "mr-12",
                             a { class: "hover:text-gray-600",
-                                href: "#",
+                                href: "/",
                                 "Collection"
                             }
                         }
                         li { class: "mr-12",
                             a { class: "hover:text-gray-600",
-                                href: "#",
+                                href: "/",
                                 "Story"
                             }
                         }
                         li { 
                             a { class: "hover:text-gray-600",
-                                href: "#",
+                                href: "/",
                                 "Brand"
                             }
                         }
                     }
                     a { class: "flex-shrink-0 xl:mx-auto text-3xl font-bold font-heading",
-                        href: "#",
+                        href: "/",
                         img { class: "h-9",
                             width: "auto",
                             alt: "",
@@ -51,11 +51,11 @@ pub fn nav(cx: Scope) -> Element {
                     }
                     div { class: "hidden xl:flex items-center",
                         a { class: "mr-10 hover:text-gray-600",
-                            href: "#",
+                            href: "",
                             icons::icon_1 {}
                         }
                         a { class: "flex items-center hover:text-gray-600",
-                            href: "#",
+                            href: "/",
                             icons::icon_2 {}
                             span { class: "inline-block w-6 h-6 text-center bg-gray-50 rounded-full font-semibold font-heading",
                                 "3"
@@ -64,21 +64,21 @@ pub fn nav(cx: Scope) -> Element {
                     }
                 }
                 a { class: "hidden xl:flex items-center px-12 border-l font-semibold font-heading hover:text-gray-600",
-                    href: "#",
+                    href: "/",
                     icons::icon_3 {}
                     span { 
                         "Sign In"
                     }
                 }
                 a { class: "xl:hidden flex mr-6 items-center text-gray-600",
-                    href: "#",
+                    href: "/",
                     icons::icon_4 {}
                     span { class: "inline-block w-6 h-6 text-center bg-gray-50 rounded-full font-semibold font-heading",
                         "3"
                     }
                 }
                 a { class: "navbar-burger self-center mr-12 xl:hidden",
-                    href: "#",
+                    href: "/",
                     icons::icon_5 {}
                 }
             }
@@ -88,7 +88,7 @@ pub fn nav(cx: Scope) -> Element {
                 nav { class: "relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto",
                     div { class: "flex items-center mb-8",
                         a { class: "mr-auto text-3xl font-bold font-heading",
-                            href: "#",
+                            href: "/",
                             img { class: "h-9",
                                 src: "https://shuffle.dev/yofte-assets/logos/yofte-logo.svg",
                                 width: "auto",
@@ -101,7 +101,7 @@ pub fn nav(cx: Scope) -> Element {
                     }
                     div { class: "flex mb-8 justify-between",
                         a { class: "inline-flex items-center font-semibold font-heading",
-                            href: "#",
+                            href: "/",
                             icons::icon_7 {}
                             span { 
                                 "Sign In"
@@ -109,11 +109,11 @@ pub fn nav(cx: Scope) -> Element {
                         }
                         div { class: "flex items-center",
                             a { class: "mr-10",
-                                href: "#",
+                                href: "/",
                                 icons::icon_8 {}
                             }
                             a { class: "flex items-center",
-                                href: "#",
+                                href: "/",
                                 icons::icon_9 {}
                                 span { class: "inline-block w-6 h-6 text-center bg-gray-100 rounded-full font-semibold font-heading",
                                     "3"
@@ -128,25 +128,25 @@ pub fn nav(cx: Scope) -> Element {
                     ul { class: "text-3xl font-bold font-heading",
                         li { class: "mb-8",
                             a { 
-                                href: "#",
+                                href: "/",
                                 "Category"
                             }
                         }
                         li { class: "mb-8",
                             a { 
-                                href: "#",
+                                href: "/",
                                 "Collection"
                             }
                         }
                         li { class: "mb-8",
                             a { 
-                                href: "#",
+                                href: "/",
                                 "Story"
                             }
                         }
                         li { 
                             a { 
-                                href: "#",
+                                href: "/",
                                 "Brand"
                             }
                         }
@@ -160,7 +160,7 @@ pub fn nav(cx: Scope) -> Element {
 mod icons {
     use super::*;
     
-    pub(super) fn icon_0(cx: Scope) -> Element {
+    pub(super) fn cart_icon(cx: Scope) -> Element {
         cx.render(rsx!(
             svg { class: "mr-3",
                 fill: "none",
