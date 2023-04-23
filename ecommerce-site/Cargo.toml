@@ -8,9 +8,9 @@ edition = "2018"
 [dependencies]
 axum = { version = "0.6.16", features = ["ws"] }
 cached = "0.43.0"
-dioxus = { path = "C:/Users/Desktop/github/dioxus/packages/dioxus" }
-dioxus-ssr = { path = "C:/Users/Desktop/github/dioxus/packages/ssr" }
-dioxus-liveview = { path = "C:/Users/Desktop/github/dioxus/packages/liveview", features = ["axum"] }
+dioxus = { git = "https://github.com/DioxusLabs/dioxus" }
+dioxus-ssr = { git = "https://github.com/DioxusLabs/dioxus" }
+dioxus-liveview = { git = "https://github.com/DioxusLabs/dioxus", features = ["axum"] }
 reqwest = { version = "0.11.16", features = ["json"] }
 serde = "1.0.160"
 tokio = { version = "1.15.0", features = ["full"] }
