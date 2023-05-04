@@ -9,14 +9,14 @@ async fn main() {
 }
 
 fn app(cx: Scope) -> Element {
-    let api = use_state(&cx, || "".to_string());
-    let prompt = use_state(&cx, || "".to_string());
-    let n_image = use_state(&cx, || 1.to_string());
-    let image = use_state(&cx, || ImageResponse {
+    let api = use_state(cx, || "".to_string());
+    let prompt = use_state(cx, || "".to_string());
+    let n_image = use_state(cx, || 1.to_string());
+    let image = use_state(cx, || ImageResponse {
         created: 0,
         data: Vec::new(),
     });
-    let loading = use_state(&cx, || "".to_string());
+    let loading = use_state(cx, || "".to_string());
     
     cx.render(rsx! {
         head {

@@ -16,6 +16,8 @@ mobile-entry-point = "0.1.0"
 dioxus = { version = "0.3" }
 dioxus-mobile = { version = "0.3" }
 simple_logger = "1.11.0"
+im-rc = "15.0.0"
+
 
 
 # [target.'cfg(target_os = "android")'.dependencies]

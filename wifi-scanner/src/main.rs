@@ -53,7 +53,7 @@ struct AppProps {
 fn app(cx: Scope<AppProps>) -> Element {
     let status = use_state(cx, || Status::NoneFound);
 
-    let _ = use_coroutine(&cx, |_| {
+    let _ = use_coroutine(cx, |_: UnboundedReceiver<()>| {
         let receiver = cx.props.receiver.take();
         let status = status.to_owned();
         async move {
@@ -75,16 +75,16 @@ fn app(cx: Scope<AppProps>) -> Element {
                         class: "inline-block w-full md:w-auto px-6 py-3 font-medium text-white bg-indigo-500 hover:bg-indigo-600 rounded transition duration-200",
                         onclick: move |_| {
                             let sender = cx.props.sender.take();
-                                std::thread::spawn( || {
-                                if let Some(sender) = sender {
-                                        let _ = sender.unbounded_send(Status::Scanning);
-                                        let _ = sender.unbounded_send(perform_scan());
-                                    }
-                                });
+                            std::thread::spawn( || {
+                            if let Some(sender) = sender {
+                                    let _ = sender.unbounded_send(Status::Scanning);
+                                    let _ = sender.unbounded_send(perform_scan());
+                                }
+                            });
                         },
-                        match status {
-                                Status::Scanning => rsx!("Scanning"),
-                                _ => rsx!("Scan"),
+                        match status.get() {
+                            Status::Scanning => rsx!("Scanning"),
+                            _ => rsx!("Scan"),
                         }
                     }
                 }
@@ -103,7 +103,7 @@ fn app(cx: Scope<AppProps>) -> Element {
                                 }
                             }
 
-                            match status {
+                            match status.get() {
                                 Status::Scanning => rsx!(""),
                                 Status::NoneFound => rsx!("No networks found. Try scanning again"),
                                 Status::Found(wifis)  => {
