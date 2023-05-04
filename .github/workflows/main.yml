@@ -41,4 +41,4 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: check
-          args: --all --examples --tests
+          args: --all --examples --tests --exclude dioxus-ios-demo
