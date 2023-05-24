@@ -7,5 +7,4 @@ edition = "2021"
 
 [dependencies]
 dioxus = { version = "0.3" }
-dioxus-desktop = { version = "0.3" }
-tokio = { version = "1.15.0", features = ["full"] }
+dioxus-web = { version = "0.3" }

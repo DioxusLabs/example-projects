@@ -9,8 +9,6 @@ edition = "2021"
 
 dioxus = { version = "0.3" }
 dioxus-desktop = { version = "0.3" }
-openssl = { version = "0.10", features = ["vendored"] }
-openssl-sys = "0.9"
 reqwest = "0.11.13"
 tokio = { version = "1", features = ["full"] } 
 serde_json = "1.0.91"

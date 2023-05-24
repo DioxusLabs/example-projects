@@ -186,7 +186,7 @@ fn search_box(cx: Scope) -> Element {
                     "Gevonden:"
                 }
                 ul { class: "bg-white border border-gray-100 w-full mt-2",
-                    {(0..3).map(|f| rsx!{
+                    {(0..3).map(|_| rsx!{
                         li { class: "pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900",
                             svg { class: "stroke-current absolute w-4 h-4 left-2 top-2",
                                 stroke: "currentColor",
