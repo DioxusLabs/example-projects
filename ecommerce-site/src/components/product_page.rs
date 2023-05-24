@@ -1,7 +1,57 @@
-use dioxus::prelude::*;
+use std::{str::FromStr, fmt::Display};
 
-pub fn product_page(cx: Scope) -> Element {
-    cx.render(rsx!(
+use dioxus::prelude::*;
+use crate::{api::{fetch_product, Product}, };
+
+#[derive(Default)]
+enum Size {
+    Small,
+    #[default]
+    Medium,
+    Large
+}
+
+impl Display for Size{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self{
+            Size::Small => "small".fmt(f),
+            Size::Medium => "medium".fmt(f),
+            Size::Large => "large".fmt(f),
+        }
+    }
+}
+
+impl FromStr for Size {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        use Size::*;
+        match s.to_lowercase().as_str(){
+            "small"=> Ok(Small),
+            "medium" => Ok(Medium),
+            "large" => Ok(Large),
+            _ => Err(())
+        }
+    }
+}
+
+#[derive(PartialEq, Props)]
+pub struct ProductPageProps{
+    product_id:usize 
+}
+
+pub fn product_page(cx: Scope<ProductPageProps>) -> Element {
+    let quantity = use_state(cx, || 1);
+    let size = use_state(cx,  Size::default);
+    let id = cx.props.product_id;
+
+    let product = use_future!(cx, |()| async move{
+        fetch_product(id).await
+    });
+
+    let Product {  title, price, description, category, image, rating,.. }=product.value()?.as_ref().ok()?;
+
+    render!{
         section { class: "py-20",
             div { class: "container mx-auto px-4",
                 div { class: "flex flex-wrap -mx-4 mb-24",
@@ -14,103 +64,30 @@ pub fn product_page(cx: Scope) -> Element {
                             }
                             img { class: "object-cover w-full h-full",
                                 alt: "",
-                                src: "https://shuffle.dev/yofte-assets/images/product-bottle.png",
+                                src: "{image}",
                             }
                             a { class: "absolute top-1/2 right-0 mr-8 transform translate-1/2",
                                 href: "#",
                                 icons::icon_1 {}
                             }
                         }
-                        div { class: "flex flex-wrap -mx-2",
-                            div { class: "w-1/2 sm:w-1/4 p-2",
-                                a { class: "block border border-blue-300",
-                                    href: "#",
-                                    img { class: "w-full h-32 object-cover",
-                                        src: "https://shuffle.dev/yofte-assets/images/product-bottle.png",
-                                        alt: "",
-                                    }
-                                }
-                            }
-                            div { class: "w-1/2 sm:w-1/4 p-2",
-                                a { class: "block border border-transparent hover:border-gray-400",
-                                    href: "#",
-                                    img { class: "w-full h-32 object-cover",
-                                        alt: "",
-                                        src: "https://shuffle.dev/yofte-assets/images/product-bottle2.png",
-                                    }
-                                }
-                            }
-                            div { class: "w-1/2 sm:w-1/4 p-2",
-                                a { class: "block border border-transparent hover:border-gray-400",
-                                    href: "#",
-                                    img { class: "w-full h-32 object-cover",
-                                        alt: "",
-                                        src: "https://shuffle.dev/yofte-assets/images/product-bottle3.png",
-                                    }
-                                }
-                            }
-                            div { class: "w-1/2 sm:w-1/4 p-2",
-                                a { class: "block border border-transparent hover:border-gray-400",
-                                    href: "#",
-                                    img { class: "w-full h-32 object-cover",
-                                        alt: "",
-                                        src: "https://shuffle.dev/yofte-assets/images/product-bottle4.png",
-                                    }
-                                }
-                            }
-                        }
                     }
                     div { class: "w-full md:w-1/2 px-4",
                         div { class: "lg:pl-20",
                             div { class: "mb-10 pb-10 border-b",
-                                span { class: "text-gray-500",
-                                    "Brille"
-                                }
                                 h2 { class: "mt-2 mb-6 max-w-xl text-5xl md:text-6xl font-bold font-heading",
-                                    "BRILE water filter carafe"
+                                    "{title}"
                                 }
                                 div { class: "mb-8",
-                                    button { 
-                                        img { 
-                                            alt: "",
-                                            src: "https://shuffle.dev/yofte-assets/elements/star-gold.svg",
-                                        }
-                                    }
-                                    button { 
-                                        img { 
-                                            src: "https://shuffle.dev/yofte-assets/elements/star-gold.svg",
-                                            alt: "",
-                                        }
-                                    }
-                                    button { 
-                                        img { 
-                                            src: "https://shuffle.dev/yofte-assets/elements/star-gold.svg",
-                                            alt: "",
-                                        }
-                                    }
-                                    button { 
-                                        img { 
-                                            src: "https://shuffle.dev/yofte-assets/elements/star-gold.svg",
-                                            alt: "",
-                                        }
-                                    }
-                                    button { 
-                                        img { 
-                                            src: "https://shuffle.dev/yofte-assets/elements/star-gray.svg",
-                                            alt: "",
-                                        }
-                                    }
+                                    "{rating}"
                                 }
                                 p { class: "inline-block mb-8 text-2xl font-bold font-heading text-blue-300",
                                     span { 
-                                        "$29.99"
-                                    }
-                                    span { class: "font-normal text-base text-gray-400 line-through",
-                                        "$33.69"
+                                        "${price}"
                                     }
                                 }
                                 p { class: "max-w-md text-gray-500",
-                                    "Maecenas commodo libero ut molestie dictum. Morbi placerat eros id porttitor sagittis."
+                                    "{description}"
                                 }
                             }
                             div { class: "flex mb-12",
@@ -120,13 +97,17 @@ pub fn product_page(cx: Scope) -> Element {
                                     }
                                     div { class: "inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md",
                                         button { class: "py-2 hover:text-gray-700",
+                                            onclick: move |_| quantity.modify(|q| *q + 1),
                                             icons::icon_2 {}
                                         }
                                         input { class: "w-12 m-0 px-2 py-4 text-center md:text-right border-0 focus:ring-transparent focus:outline-none rounded-md",
                                             placeholder: "1",
                                             r#type: "number",
+                                            value: "{quantity}",
+                                            oninput: move |evt| if let Ok(as_number) = evt.value.parse() { quantity.set(as_number) },
                                         }
                                         button { class: "py-2 hover:text-gray-700",
+                                            onclick: move |_| quantity.modify(|q| q - 1),
                                             icons::icon_3 {}
                                         }
                                     }
@@ -138,6 +119,11 @@ pub fn product_page(cx: Scope) -> Element {
                                     select { class: "pl-6 pr-10 py-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md",
                                         id: "",
                                         name: "",
+                                        onchange: move |evt| {
+                                            if let Ok(new_size) = evt.value.parse() {
+                                                size.set(new_size);
+                                            }
+                                        },
                                         option { 
                                             value: "1",
                                             "Medium"
@@ -158,16 +144,6 @@ pub fn product_page(cx: Scope) -> Element {
                                     a { class: "block bg-orange-300 hover:bg-orange-400 text-center text-white font-bold font-heading py-5 px-8 rounded-md uppercase transition duration-200",
                                         href: "#",
                                         "Add to cart"
-                                    }
-                                }
-                                div { class: "w-full xl:w-1/3 px-4",
-                                    a { class: "ml-auto sm:ml-0 flex-shrink-0 inline-flex mr-4 items-center justify-center w-16 h-16 rounded-md border hover:border-gray-500",
-                                        href: "#",
-                                        icons::icon_4 {}
-                                    }
-                                    a { class: "flex-shrink-0 inline-flex items-center justify-center w-16 h-16 rounded-md border hover:border-gray-500",
-                                        href: "#",
-                                        icons::icon_5 {}
                                     }
                                 }
                             }
@@ -228,15 +204,15 @@ pub fn product_page(cx: Scope) -> Element {
                         }
                     }
                     h3 { class: "mb-8 text-3xl font-bold font-heading text-blue-300",
-                        "Summer collection and laoreet get"
+                        "{category}"
                     }
                     p { class: "max-w-2xl text-gray-500",
-                        "I had interdum at ante porta, eleifend feugiat nunc. In semper euismod mi a accums lorem sad. Morbi at auctor nibh. Aliquam tincidunt placerat mollis. Lorem euismod dignissim, felis tortor ollis eros, non ultricies turpis."
+                        "{description}"
                     }
                 }
             }
         }
-    ))
+}
 }
 
 mod icons {
@@ -329,39 +305,6 @@ mod icons {
             }
 		))
 	}
-
-    pub(super) fn icon_4(cx: Scope) -> Element {
-        cx.render(rsx!(
-            svg { 
-                fill: "none",
-                xmlns: "http://www.w3.org/2000/svg",
-                height: "18",
-                width: "10",
-                view_box: "0 0 10 18",
-                path { 
-                    fill: "#1F40FF",
-                    d: "M0.19922 1.1817C-0.0687795 0.909696 -0.0687794 0.472695 0.19922 0.202695C0.46722 -0.0673054 0.90022 -0.0683048 1.16822 0.202695L8.99822 8.11069C9.26622 8.3807 9.26622 8.81769 8.99822 9.08969L1.16822 16.9977C0.900219 17.2677 0.467218 17.2677 0.199219 16.9977C-0.0687809 16.7267 -0.0687808 16.2887 0.199219 16.0187L7.34022 8.5997L0.19922 1.1817Z",
-                }
-            }
-		))
-	}
-
-    pub(super) fn icon_5(cx: Scope) -> Element {
-        cx.render(rsx!(
-            svg { 
-                width: "10",
-                view_box: "0 0 10 18",
-                xmlns: "http://www.w3.org/2000/svg",
-                height: "18",
-                fill: "none",
-                path { 
-                    fill: "#1F40FF",
-                    d: "M9 16.0185C9.268 16.2905 9.268 16.7275 9 16.9975C8.732 17.2675 8.299 17.2685 8.031 16.9975L0.201 9.0895C-0.067 8.8195 -0.067 8.3825 0.201 8.1105L8.031 0.2025C8.299 -0.0675 8.732 -0.0675 9 0.2025C9.268 0.4735 9.268 0.9115 9 1.1815L1.859 8.6005L9 16.0185Z",
-                }
-            }
-		))
-	}
-
 }
 
 
