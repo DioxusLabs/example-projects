@@ -1,4 +1,4 @@
-// The homepage is staticly rendereded, so we don't need to a persistant websocket connection
+// The homepage is statically rendered, so we don't need to a persistent websocket connection.
 
 use crate::{
     api::{fetch_products, Sort},

@@ -41,14 +41,14 @@ impl Display for Rating {
 #[allow(unused)]
 #[derive(Clone, Copy, Hash, PartialEq, Eq, PartialOrd)]
 pub(crate) enum Sort {
-    Decending,
+    Descending,
     Ascending,
 }
 
 impl Display for Sort {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Sort::Decending => write!(f, "desc"),
+            Sort::Descending => write!(f, "desc"),
             Sort::Ascending => write!(f, "asc"),
         }
     }
