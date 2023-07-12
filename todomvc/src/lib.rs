@@ -118,15 +118,20 @@ pub fn todo_entry<'a>(cx: Scope<'a, TodoEntryProps<'a>>) -> Element {
 
     let todos = cx.props.set_todos.read();
     let todo = &todos[&cx.props.id];
-    let completed = if todo.checked { "completed" } else { "" };
+    let is_checked = todo.checked;
+    let completed = if is_checked { "completed" } else { "" };
     let is_editing = (**editing).then_some("editing").unwrap_or_default();
 
     render!(li {
         class: "{completed} {is_editing}",
-        onclick: move |_| editing.set(true),
+        onclick: move |_| {
+            if !is_checked {
+                editing.set(true)
+            }
+        },
         onfocusout: move |_| editing.set(false),
         div { class: "view",
-            input { class: "toggle", r#type: "checkbox", id: "cbg-{todo.id}", checked: "{todo.checked}",
+            input { class: "toggle", r#type: "checkbox", id: "cbg-{todo.id}", checked: "{is_checked}",
                 onchange: move |evt| {
                     cx.props.set_todos.write()[&cx.props.id].checked = evt.value.parse().unwrap();
                 }
