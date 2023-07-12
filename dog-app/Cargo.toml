@@ -21,9 +21,7 @@ serde = { version = "1.0.132", features = ["derive"] }
 [package.metadata.bundle]
 name = "Dog Search Engine"
 identifier = "com.jon.dogsearch"
-# icon = ["32x32.png", "128x128.png", "128x128@2x.png"]
 version = "1.0.0"
-# resources = ["assets", "images/**/*.png", "secrets/public_key.txt"]
 copyright = "Copyright (c) Jane Doe 2016. All rights reserved."
 category = "Developer Tool"
 short_description = "An example application."
