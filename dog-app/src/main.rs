@@ -42,8 +42,8 @@ fn app(cx: Scope) -> Element {
                     }
                 }
             }
-            div { class: "px-2 flex",
-                div { class: "grow w-full h-full",
+            div { class: "px-2 flex gap-2",
+                div { class: "grow w-full",
                     if let Some(Ok(breeds)) = fut.value() {
                         let current_search = search_input.get();
                         rsx!{
@@ -78,8 +78,9 @@ fn app(cx: Scope) -> Element {
                 if let Some(selected_breed) = selected_breed.get() {
                     rsx!(
                         div {
-                            class: "w-1/2",
+                            class: "fixed bottom-0 right-0 m-10 shadow-lg",
                             img {
+                                class: "w-80 h-80 rounded-lg",
                                 src: "{selected_breed}"
                             }
                         }
@@ -96,8 +97,8 @@ fn Card<'a>(cx: Scope, title: String, list: Vec<String>, onclick: EventHandler<'
     render!(
         div {
             onclick: |_| onclick.call(()),
-            class: "my-2 bg-gray-100 w-full rounded-sm p-2",
-            h3 { class: "text-2xl", "{title}" }
+            class: "my-2 bg-gray-100 w-full rounded-lg p-4 hover:bg-gray-200 ease-in-out duration-75",
+            h3 { class: "text-1xl", "{title}" }
             ul { class: "list-disc ml-8",
                 {list.iter().map(|item| rsx!( li {
                     key: "{item}",
