@@ -43,4 +43,6 @@ Current Projects:
 [![Weather App](./)](./weatherapp)
 
 ## Dog App (Desktop)
+[Instructions](./dog-app/README.md/#Instructions)
+
 [![Dog App](./dog-app/dog-app.png)](./dog-app)
