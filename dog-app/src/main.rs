@@ -9,7 +9,11 @@ mod models;
 fn main() {
     dioxus_desktop::launch_cfg(
         app,
-        Config::default().with_window(WindowBuilder::new().with_maximized(true).with_title("Dog App")),
+        Config::default().with_window(
+            WindowBuilder::new()
+                .with_maximized(true)
+                .with_title("Dog App"),
+        ),
     )
 }
 
@@ -17,10 +21,8 @@ fn app(cx: Scope) -> Element {
     let selected_breed = use_state::<Option<String>>(cx, || None);
     let search_input = use_state(cx, String::new);
 
-    // when the component loads, we want to fetch the dog list
-    let fut = use_future!(cx, |()| async move {
-        list_all_breeds().await
-    });
+    // Fetch the dog list when the component mounts
+    let fut = use_future!(cx, |()| async move { list_all_breeds().await });
 
     render!(
         link {
@@ -41,8 +43,7 @@ fn app(cx: Scope) -> Element {
                 }
             }
             div { class: "px-2 flex",
-                div {
-                    class: "grow w-full",
+                div { class: "grow w-full h-full",
                     if let Some(Ok(breeds)) = fut.value() {
                         let current_search = search_input.get();
                         rsx!{
@@ -56,7 +57,7 @@ fn app(cx: Scope) -> Element {
                                             }
                                         })
                                     };
-    
+
                                     Some(rsx! {
                                         Card {
                                             key: "{breed}",
@@ -77,7 +78,7 @@ fn app(cx: Scope) -> Element {
                 if let Some(selected_breed) = selected_breed.get() {
                     rsx!(
                         div {
-                            class: "grow-[1]",
+                            class: "w-1/2",
                             img {
                                 src: "{selected_breed}"
                             }
@@ -96,12 +97,8 @@ fn Card<'a>(cx: Scope, title: String, list: Vec<String>, onclick: EventHandler<'
         div {
             onclick: |_| onclick.call(()),
             class: "my-2 bg-gray-100 w-full rounded-sm p-2",
-            h3 {
-                class: "text-2xl",
-                "{title}"
-            }
-            ul {
-                class: "list-disc ml-8",
+            h3 { class: "text-2xl", "{title}" }
+            ul { class: "list-disc ml-8",
                 {list.iter().map(|item| rsx!( li {
                     key: "{item}",
                     "{item}"
