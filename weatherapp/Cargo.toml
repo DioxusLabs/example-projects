@@ -3,8 +3,10 @@ name = "weatherapp"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-dioxus = { version = "0.3" }
-dioxus-web = { version = "0.3" }
+chrono = { version = "0.4.26", features = ["serde"] }
+dioxus = "0.3"
+dioxus-web = "0.3"
+reqwest = { version = "0.11.18", features = ["json"] }
+serde = "1.0.171"
+serde_json = "1.0.102"

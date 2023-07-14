@@ -17,7 +17,7 @@ Current Projects:
 | [File Explorer](./file-explorer) | Desktop      | @jkelleyrtp |
 | [E-Commerce](./ecommerce-site)   | LiveView     | @jkelleyrtp |
 | [WiFi Scanner](./wifi-scanner)   | Desktop      | @jkelleyrtp |
-| [Weather App (WIP](./weatherapp) | Web          | @jkelleyrtp |
+| [Weather App](./weatherapp)      | Web          | @jkelleyrtp |
 | [Dog Search Engine](./dog-app)   | Web/Desktop  | @jkelleyrtp |
 
 
@@ -39,8 +39,10 @@ Current Projects:
 ## WiFi Scanner (Desktop)
 [![WiFi Scanner](./wifi-scanner/demo_small.png)](./wifi-scanner)
 
-## Weather App (Liveview) [WIP]
-[![Weather App](./)](./weatherapp)
+## Weather App (Web)
+[Instructions](./weatherapp/README.md/#Instructions)
+
+[![Weather App](./weatherapp/weatherapp.png)](./weatherapp)
 
 ## Dog Search Engine (Web) [WIP]
 [![Dog Search Engine](./)](./dog-app)
