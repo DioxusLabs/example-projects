@@ -18,7 +18,7 @@ Current Projects:
 | [E-Commerce](./ecommerce-site)   | LiveView     | @jkelleyrtp |
 | [WiFi Scanner](./wifi-scanner)   | Desktop      | @jkelleyrtp |
 | [Weather App (WIP](./weatherapp) | Web          | @jkelleyrtp |
-| [Dog Search Engine](./dog-app)   | Web/Desktop  | @jkelleyrtp |
+| [Dog App](./dog-app)             | Desktop      | @jkelleyrtp |
 
 
 ## TODOMVC (Desktop, Web)
@@ -42,5 +42,7 @@ Current Projects:
 ## Weather App (Liveview) [WIP]
 [![Weather App](./)](./weatherapp)
 
-## Dog Search Engine (Web) [WIP]
-[![Dog Search Engine](./)](./dog-app)
+## Dog App (Desktop)
+[Instructions](./dog-app/README.md/#Instructions)
+
+[![Dog App](./dog-app/dog-app.png)](./dog-app)
