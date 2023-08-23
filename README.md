@@ -17,9 +17,8 @@ Current Projects:
 | [File Explorer](./file-explorer) | Desktop      | @jkelleyrtp |
 | [E-Commerce](./ecommerce-site)   | LiveView     | @jkelleyrtp |
 | [WiFi Scanner](./wifi-scanner)   | Desktop      | @jkelleyrtp |
-| [Weather App (WIP](./weatherapp) | Web          | @jkelleyrtp |
+| [Weather App](./weatherapp)      | Web          | @jkelleyrtp |
 | [Dog App](./dog-app)             | Desktop      | @jkelleyrtp |
-
 
 ## TODOMVC (Desktop, Web)
 
@@ -39,8 +38,10 @@ Current Projects:
 ## WiFi Scanner (Desktop)
 [![WiFi Scanner](./wifi-scanner/demo_small.png)](./wifi-scanner)
 
-## Weather App (Liveview) [WIP]
-[![Weather App](./)](./weatherapp)
+## Weather App (Web)
+[Instructions](./weatherapp/README.md/#Instructions)
+
+[![Weather App](./weatherapp/weatherapp.png)](./weatherapp)
 
 ## Dog App (Desktop)
 [Instructions](./dog-app/README.md/#Instructions)
