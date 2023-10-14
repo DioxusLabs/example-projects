@@ -1,0 +1,26 @@
+[package]
+name = "HangMan"
+version = "1.0.0"
+authors = ["Andrey Greyze"]
+edition = "2021"
+
+[package.metadata.bundle]
+icon = "/home/andrey/code/HangMan/public/AppImage.jpeg"
+short_description = "a compact and free Hangman game to play anywhere"
+category = "game"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+dioxus-desktop = { version = "0.4" }
+dioxus-web = "0.4.0"
+dioxus = { version = "0.4" }
+dioxus-router = { version = "0.4" }
+random_word = { version = "0.4.0", features = ["en"] }
+rand = "0.8.5"
+getrandom = { version = "0.2", features = ["js"] }
+
+# Debug
+log = "0.4.19"
+dioxus-logger = "0.4.1"
