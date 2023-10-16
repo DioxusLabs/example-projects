@@ -1,4 +1,4 @@
-###Hangman
+# Hangman
 
 Play a game of hangman with Dioxus! 
 
