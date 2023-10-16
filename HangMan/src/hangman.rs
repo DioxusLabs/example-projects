@@ -1,6 +1,5 @@
-use std::vec;
 use dioxus::prelude::*;
-use crate::{MAXIMUM_WRONG_GUESSES, ResetFlag};
+use crate::MAXIMUM_WRONG_GUESSES;
 
 #[inline_props]
 pub fn Hangman(cx:Scope, number_of_wrong_guesses: usize) -> Element {
@@ -35,19 +34,13 @@ pub fn Hangman(cx:Scope, number_of_wrong_guesses: usize) -> Element {
 }
 #[allow(non_upper_case_globals)]
 #[inline_props]
-pub fn KeyBoard<'a>(cx: Scope, onguess: EventHandler<'a, char>, reset_game: ResetFlag, disable_all: bool) -> Element<'a> {
+pub fn KeyBoard<'a>(cx: Scope, onguess: EventHandler<'a, char>, key_states: UseRef<Vec<Vec<bool>>>, disable_all: bool) -> Element<'a> {
 
     const key_board: &[&[char]] = &[
         &['q','w','e','r','t','y','u','i','o','p'],
         &['a','s','d','f','g','h','j','k','l'],
         &['z','x','c','v','b','n','m']
     ];
-
-    let key_states = use_ref(cx, || {vec![ vec![false;10], vec![false;9] , vec![false;7]]});
-
-    use_memo(cx, reset_game, |_reset_game| {
-        key_states.set(vec![vec![false;10], vec![false;9], vec![false;7]]);
-    });
 
     cx.render(rsx!(
         div {
