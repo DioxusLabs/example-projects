@@ -9,6 +9,7 @@ members = [
     "todomvc",
     "weatherapp",
     "wifi-scanner",
+    "HangMan"
 ]
 
 # This is a "virtual package"
