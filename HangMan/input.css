@@ -1,0 +1,151 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: space-evenly;
+  background-color: beige;
+}
+
+.keys {
+  padding: 50px;
+  width: 70%;
+  height: 40%;
+  scale: 2;
+  align-self: center;
+}
+
+.key { 
+  border: 1px solid black;
+  border-radius: 0px;
+}
+
+.play-again {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: rgb(219, 71, 71);
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.hangman-word {
+  align-self: center;
+  scale: 1.2;
+  padding-bottom: 20px;
+}
+
+.hangman-container {
+  position: relative;
+  border: 1px solid black;
+  padding: 0.5rem;
+  width: 50%;
+  height: 50vh;
+  align-self: center;
+}
+
+.hangman0 {
+  position: absolute;
+  background-color: rgba(31, 27, 27, 0.501);
+  width: 60%;
+  height:10%;
+  top: 90%;
+  left: 10%
+}
+
+.game-msg {
+  align-self: center;
+}
+
+.hangman1 {
+  position: absolute;
+  border: 1px solid black;
+  background-color: rgba(31, 27, 27, 0.501);
+  width: 10%;
+  height:95%;
+  left: 20%;
+}
+
+.hangman2 {
+  position: absolute;
+  border: 1px solid black;
+  background-color: rgba(31, 27, 27, 0.501);
+  width: 40%;
+  height:10%;
+  left: 20%;
+}
+
+.hangman3 {
+  position: absolute;
+  border: 1px solid black;
+  background-color: rgba(31, 27, 27, 0.501);
+  width: 5%;
+  height:30%;
+  left: 52%;
+}
+
+.hangman4 {
+  position: absolute;
+  border-radius: 50%;
+  background-color: bisque;
+  width: 20%;
+  height:20%;
+  left: 45%;
+  top: 25%;
+}
+
+.hangman5 {
+  position: absolute;
+  background-color: bisque;
+  width: 5%;
+  height:30%;
+  left: 52%;
+  top: 40%;
+}
+
+.hangman6 {
+  position: absolute;
+  background-color: bisque;
+  rotate:30deg;
+  width: 3%;
+  height:25%;
+  left: 45%;
+  top: 42%;
+}
+
+.hangman7 {
+  position: absolute;
+  rotate:-30deg;
+  background-color: bisque;
+  width: 3%;
+  height:25%;
+  left: 61%;
+  top: 42%;
+}
+
+.hangman8 {
+  position: absolute;
+  background-color: bisque;
+  width: 3%;
+  rotate: 20deg;
+  height:28%;
+  left: 49%;
+  top: 60%;
+}
+
+.hangman9 {
+  position: absolute;
+  background-color: bisque;
+  width: 3%;
+  rotate: -20deg;
+  height:28%;
+  left: 57%;
+  top: 60%;
+}
