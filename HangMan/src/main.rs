@@ -25,7 +25,7 @@ fn Home(cx: Scope) -> Element {
 
     
     cx.render(rsx!(     
-        link {href:"/home/andrey/code/HangMan/input.css", rel: "stylesheet" },   
+        link {href:"input.css", rel: "stylesheet" },   
         body {     
 
             style: r#"
