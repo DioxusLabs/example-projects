@@ -6,7 +6,7 @@ use crate::{MAXIMUM_WRONG_GUESSES, ResetFlag};
 pub fn Hangman(cx:Scope, number_of_wrong_guesses: usize) -> Element {
 
     render!(rsx!(
-        link { rel: "stylesheet", href: "/home/andrey/code/HangMan/input.css"}
+        link { rel: "stylesheet", href: "input.css"}
         div {
             class: "hangman-container",
 
