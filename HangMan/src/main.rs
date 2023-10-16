@@ -14,7 +14,7 @@ fn main() {
 
 fn Home(cx: Scope) -> Element {
 
-    let mut counter = use_state(cx, || {0_usize});
+    let counter = use_state(cx, || {0_usize});
     let game_status = use_state(cx,||{"Guess The Word!".to_string()});
     let game_ended = use_state(cx, || {false});
     let reset_flag = use_state(cx, || {ResetFlag::new()});
@@ -55,6 +55,7 @@ fn Home(cx: Scope) -> Element {
                 KeyBoard {
                     onguess: move |input:char| {
                         let mut current_chars= guess_chars.get().clone();
+                        let mut number_of_wrong_guesses = *counter.get();
                         let chosen_word = game_word.get();
                         let mut guess_was_correct = false;
                         
@@ -65,8 +66,8 @@ fn Home(cx: Scope) -> Element {
                         
                         if !guess_was_correct {
                             //wrong guess
-                            game_status.set(format!("You only have {} guesses left, be careful", MAXIMUM_WRONG_GUESSES - 1 - *counter.get()));
-                            counter += 1;
+                            number_of_wrong_guesses += 1;
+                            game_status.set(format!("You only have {} guesses left, be careful", MAXIMUM_WRONG_GUESSES - 1 - number_of_wrong_guesses));
                         }
                         
                         let mut game_finished = true;
@@ -86,7 +87,7 @@ fn Home(cx: Scope) -> Element {
                         
                         guess_chars.set(current_chars);
                         
-                        if *counter.get() == MAXIMUM_WRONG_GUESSES-1 {
+                        if number_of_wrong_guesses == MAXIMUM_WRONG_GUESSES-1 {
                             //user lost
                             let real_word = game_word.get().clone();
                             let formatted = &real_word.iter().collect::<String>();
@@ -94,9 +95,9 @@ fn Home(cx: Scope) -> Element {
                             game_ended.set(true);
                             guess_chars.set(real_word);
                         }
-                        
+                        counter.set(number_of_wrong_guesses);
                     },
-                    reset_game: *reset_flag.get(),
+                    key_states: key_states.clone(),
                     disable_all: *game_ended.get()
                 },
 
@@ -106,7 +107,8 @@ fn Home(cx: Scope) -> Element {
                 class: "play-again",
                 disabled: !*game_ended.get(),
                 onclick: |_| {
-                    reset_flag.set(reset_flag.reset());
+                    key_states.set( vec![ vec![false;10], vec![false;9], vec![false;7] ] );
+
                     counter.set(0);
 
                     let new_word = get_new_word();
@@ -163,19 +165,5 @@ impl ContainsAny for Vec<char> {
         }
 
         ptrs
-    }
-}
-
-//little abstraction of a boolean used to reset components` state back to original
-#[derive(Props,PartialEq, Clone, Copy)]
-pub struct ResetFlag{value:bool}
-
-impl ResetFlag {
-    fn new() -> Self {
-        ResetFlag{ value: false }
-    }
-
-    pub fn reset(&self) -> Self {
-        ResetFlag{value: !self.value}
     }
 }
