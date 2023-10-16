@@ -17,8 +17,9 @@ fn Home(cx: Scope) -> Element {
     let counter = use_state(cx, || {0_usize});
     let game_status = use_state(cx,||{"Guess The Word!".to_string()});
     let game_ended = use_state(cx, || {false});
-    let reset_flag = use_state(cx, || {ResetFlag::new()});
-    let game_word = use_state(cx, || get_new_word());
+    let key_states = use_ref(cx, || {
+        vec![ vec![false;10], vec![false;9], vec![false;7] ]
+    });    let game_word = use_state(cx, || get_new_word());
     let guess_chars = use_state(cx, || {
         make_empty_guess_buffer(game_word.get().len())
     });
