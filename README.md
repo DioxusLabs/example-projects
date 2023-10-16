@@ -19,6 +19,7 @@ Current Projects:
 | [WiFi Scanner](./wifi-scanner)   | Desktop      | @jkelleyrtp |
 | [Weather App](./weatherapp)      | Web          | @jkelleyrtp |
 | [Dog App](./dog-app)             | Desktop      | @jkelleyrtp |
+| [Hangman](./HangMan)             | Desktop      | @agreyyy    |
 
 ## TODOMVC (Desktop, Web)
 
