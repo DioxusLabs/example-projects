@@ -1,28 +1,20 @@
-[workspace]
-members = [
-    "dog-app",
-    "ecommerce-site",
-    "file-explorer",
-    "image_generator_open_ai",
-    "ios_demo",
-    "jsframework-benchmark",
-    "todomvc",
-    "weatherapp",
-    "wifi-scanner",
-]
-
-# This is a "virtual package"
-# It is not meant to be published, but is used so "cargo run --example XYZ" works properly
 [package]
-name = "dioxus-example-projects"
-version = "0.0.0"
+name = "HangMan"
+version = "1.0.0"
+authors = ["Andrey Greyze"]
 edition = "2021"
-description = "Top level crate for the Dioxus examples repository"
-authors = ["Jonathan Kelley"]
-license = "MIT OR Apache-2.0"
-repository = "https://github.com/DioxusLabs/dioxus/"
-homepage = "https://dioxuslabs.com"
-documentation = "https://dioxuslabs.com"
-keywords = ["dom", "ui", "gui", "react", "wasm"]
-rust-version = "1.60.0"
-publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+dioxus-desktop = { version = "0.4" }
+dioxus-web = "0.4.0"
+dioxus = { version = "0.4" }
+dioxus-router = { version = "0.4" }
+random_word = { version = "0.4.0", features = ["en"] }
+rand = "0.8.5"
+
+# Debug
+log = "0.4.19"
+dioxus-logger = "0.4.1"

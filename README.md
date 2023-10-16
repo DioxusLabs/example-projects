@@ -1,50 +1,5 @@
-# Example projects with Dioxus
+#Hangman
+Play a game of hangman with Dioxus! 
 
-This repository holds the code for a variety of example projects built with Dioxus.
+![Demo of app](./icon.png)
 
-Each project has information on how to build/deploy.
-
-If you want to add your own, feel free to make a PR!
-
-
-Current Projects:
-
-
-| Example                          | Platform     | Creator     |
-| -------------------------------- | ------------ | ----------- |
-| [TodoMVC](./todomvc)             | Web, Desktop | @jkelleyrtp |
-| [TodoMVC](./ios_demo)            | iOS          | @jkelleyrtp |
-| [File Explorer](./file-explorer) | Desktop      | @jkelleyrtp |
-| [E-Commerce](./ecommerce-site)   | LiveView     | @jkelleyrtp |
-| [WiFi Scanner](./wifi-scanner)   | Desktop      | @jkelleyrtp |
-| [Weather App](./weatherapp)      | Web          | @jkelleyrtp |
-| [Dog App](./dog-app)             | Desktop      | @jkelleyrtp |
-| [Hangman](./HangMan)             | Desktop      | @agreyyy    |
-
-## TODOMVC (Desktop, Web)
-
-[![TodoMVC](./todomvc/example.png)](./todomvc)
-
-## iOS TODOMVC 
-[![TodoMVC Mobile](./ios_demo/assets/screenshot_smaller.jpeg)](./ios_demo)
-
-## File Explorer (Desktop) 
-[![File Explorer](./file-explorer/image.png)](./file-explorer)
-
-
-## E-Commerce (Liveview)
-[![E Commerce](./ecommerce-site/demo.png)](./ecommerce-site)
-
-
-## WiFi Scanner (Desktop)
-[![WiFi Scanner](./wifi-scanner/demo_small.png)](./wifi-scanner)
-
-## Weather App (Web)
-[Instructions](./weatherapp/README.md/#Instructions)
-
-[![Weather App](./weatherapp/weatherapp.png)](./weatherapp)
-
-## Dog App (Desktop)
-[Instructions](./dog-app/README.md/#Instructions)
-
-[![Dog App](./dog-app/dog-app.png)](./dog-app)
