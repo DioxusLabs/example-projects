@@ -9,7 +9,12 @@ use crate::hangman::{KeyBoard,Hangman};
 pub const MAXIMUM_WRONG_GUESSES: usize = 10;
 
 fn main() { 
-    dioxus_desktop::launch(Home);
+    dioxus_desktop::launch_cfg(
+        Home,
+        Config::default().with_window(
+            WindowBuilder::new().with_title("Hangman")
+        )
+    );
 }
 
 fn Home(cx: Scope) -> Element {
