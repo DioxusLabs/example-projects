@@ -10,8 +10,8 @@ documentation = "https://dioxuslabs.com"
 keywords = ["dom", "ui", "gui", "react", "wasm"]
 
 [dependencies]
-dioxus = "0.3"
-dioxus-desktop = "0.3"
+dioxus = "0.4"
+dioxus-desktop = "0.4"
 reqwest = { version = "0.11.8", features = ["json"] }
 serde = { version = "1.0.132", features = ["derive"] }
 
