@@ -15,7 +15,7 @@ members = [
 # It is not meant to be published, but is used so "cargo run --example XYZ" works properly
 [package]
 name = "dioxus-example-projects"
-version = "0.0.0"
+version = "0.0.1"
 edition = "2021"
 description = "Top level crate for the Dioxus examples repository"
 authors = ["Jonathan Kelley"]
