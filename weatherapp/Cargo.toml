@@ -1,12 +1,12 @@
 [package]
 name = "weatherapp"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 
 [dependencies]
 chrono = { version = "0.4.26", features = ["serde"] }
-dioxus = "0.3"
-dioxus-web = "0.3"
+dioxus = "0.4.0"
+dioxus-web = "0.4.0"
 reqwest = { version = "0.11.18", features = ["json"] }
 serde = "1.0.171"
 serde_json = "1.0.102"
