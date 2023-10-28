@@ -7,10 +7,10 @@ description = "File Explorer with Dioxus"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.3" }
-dioxus-desktop = { version = "0.3" }
+dioxus = { git = "https://github.com/DioxusLabs/dioxus" }
+dioxus-desktop = { git = "https://github.com/DioxusLabs/dioxus/" }
 log = "0.4.14"
-simple_logger = "1.13.0"
+simple_logger = "4.2.0"
 
 
 [package.metadata.bundle]
