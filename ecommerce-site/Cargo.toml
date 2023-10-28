@@ -7,7 +7,7 @@ edition = "2018"
 
 [dependencies]
 axum = { version = "0.6.16", features = ["ws"] }
-cached = "0.43.0"
+cached = "0.46.0"
 dioxus = { git = "https://github.com/DioxusLabs/dioxus" }
 dioxus-ssr = { git = "https://github.com/DioxusLabs/dioxus" }
 dioxus-liveview = { git = "https://github.com/DioxusLabs/dioxus", features = ["axum"] }
@@ -16,3 +16,4 @@ serde = "1.0.160"
 tokio = { version = "1.15.0", features = ["full"] }
 tower-http = { version = "0.4.0", features = ["fs"] }
 chrono = { version = "0.4.24", features = ["serde"] }
+
