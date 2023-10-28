@@ -10,8 +10,8 @@ documentation = "https://dioxuslabs.com"
 keywords = ["dom", "ui", "gui", "react", "wasm"]
 
 [dependencies]
-dioxus = "0.4"
-dioxus-desktop = "0.4"
+dioxus = { git = "https://github.com/DioxusLabs/dioxus" }
+dioxus-desktop = { git = "https://github.com/DioxusLabs/dioxus/" }
 reqwest = { version = "0.11.8", features = ["json"] }
 serde = { version = "1.0.132", features = ["derive"] }
 
@@ -30,3 +30,4 @@ nisi ut aliquip ex ea commodo consequat.
 """
 # deb_depends = ["libgl1-mesa-glx", "libsdl2-2.0-0 (>= 2.0.5)"]
 # osx_frameworks = ["SDL2"]
+
