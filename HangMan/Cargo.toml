@@ -8,10 +8,8 @@ edition = "2021"
 
 [dependencies]
 
-dioxus-desktop = { version = "0.4" }
-dioxus-web = "0.4.0"
-dioxus = { version = "0.4" }
-dioxus-router = { version = "0.4" }
+dioxus = { git = "https://github.com/DioxusLabs/dioxus" }
+dioxus-desktop = { git = "https://github.com/DioxusLabs/dioxus/" }
 random_word = { version = "0.4.0", features = ["en"] }
 rand = "0.8.5"
 
