@@ -9,6 +9,7 @@
 use dioxus::prelude::*;
 use dioxus_desktop::{Config, WindowBuilder};
 
+
 fn main() {
     // simple_logger::init_with_level(log::Level::Debug).unwrap();
     dioxus_desktop::launch_cfg(
@@ -87,11 +88,20 @@ impl Files {
         log::info!("Reloading path list for {:?}", cur_path);
         let paths = match std::fs::read_dir(cur_path) {
             Ok(e) => e,
-            Err(err) => {
-                let err = format!("An error occurred: {:?}", err);
-                self.err = Some(err);
-                self.path_stack.pop();
-                return;
+            Err(err) => {   //Likely we're trying to open a file, so let's open it!
+                match open::that(cur_path){
+                    Ok(_) => {
+                        log::info!("Opened file");
+                        return;
+                    },
+                    Err(err) => {
+                        let err = format!("An error occurred: {:?}", err);
+                        self.err = Some(err);
+                        self.path_stack.pop();
+                        return;
+                    }
+                }
+
             }
         };
         let collected = paths.collect::<Vec<_>>();
@@ -105,7 +115,7 @@ impl Files {
             self.path_names
                 .push(path.unwrap().path().display().to_string());
         }
-        log::info!("path namees are {:#?}", self.path_names);
+        log::info!("path names are {:#?}", self.path_names);
     }
 
     fn go_up(&mut self) {
