@@ -1,3 +1,5 @@
+# **These examples have moved to the main dioxus repo. You can view updated versions [here](https://github.com/DioxusLabs/dioxus/tree/main/examples)**
+
 # Example projects with Dioxus
 
 This repository holds the code for a variety of example projects built with Dioxus.
