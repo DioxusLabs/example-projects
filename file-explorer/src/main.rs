@@ -1,7 +1,15 @@
 #![allow(non_snake_case)]
+//! Example: File Explorer
+//! -------------------------
+//!
+//! This is a fun little desktop application that lets you explore the file system.
+//!
+//! This example is interesting because it's mixing filesystem operations and GUI, which is typically hard for UI to do.
+
 
 use dioxus::prelude::*;
 use log::LevelFilter;
+
 
 fn main() {
     // Init debug
