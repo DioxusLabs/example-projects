@@ -63,7 +63,6 @@ fn App() -> Element {
 }
 
 
-#[derive(Debug)]
 struct File {
     is_directory: bool,
     name: String,
@@ -136,7 +135,6 @@ impl Files {
     fn enter_dir(&mut self, dir_id: usize) {
         let path = &self.path_names[dir_id];
         self.path_stack.push(path.name.to_string());
-        println!("{:#?}", self.path_stack);
         self.reload_path_list();
     }
 
