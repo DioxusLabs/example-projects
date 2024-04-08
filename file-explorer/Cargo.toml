@@ -1,32 +1,29 @@
 [package]
 name = "file-explorer"
-version = "0.1.1"
-edition = "2018"
-description = "File Explorer with Dioxus"
+edition = "2021"
+version = "0.1.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.4.0" }
-dioxus-desktop = { version = "0.4.0" }
-log = "0.4.14"
-open = "5.0.0"
-simple_logger = "4.2.0"
 
+dioxus = { version = "0.5", features = ["desktop"] }
+
+# Debug
+log = "0.4.19"
+dioxus-logger = "0.4.1"
+open = "5.1.2"
 
 [package.metadata.bundle]
 name = "Dioxus File Explorerer"
 identifier = "com.doe.exampleapplication"
 icon = ["32x32.png", "128x128.png", "128x128@2x.png"]
-version = "1.0.0"
+version = "1.1.0"
+authors = ["tkr-sh <tkirishima@proton.me>", "Jonathan Kelley <jkelleyrtp@gmail.com>"]
 resources = ["assets", "images/**/*.png", "secrets/public_key.txt"]
 copyright = "Copyright (c) Jane Doe 2016. All rights reserved."
 category = "Developer Tool"
 short_description = "An example application."
-long_description = """
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut
-enim ad minim veniam, quis nostrud exercitation ullamco laboris
-nisi ut aliquip ex ea commodo consequat.
-"""
-osx_frameworks = []
+
+# This package is not part of the workspace to avoid dependancy resolution issues between dioxus 0.4 and 0.5
+[workspace]

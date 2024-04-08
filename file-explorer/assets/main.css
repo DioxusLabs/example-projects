@@ -10,29 +10,6 @@ body {
     padding-top: 77px;
 }
 
-/* header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  padding: 20px;
-  background-color: #2196F3;
-  color: white;
-}
-header h1 {
-  float: left;
-  font-size: 20px;
-  font-weight: 400;
-}
-header .material-icons {
-  float: right;
-  cursor: pointer;
-}
-header .icon-menu {
-  float: left;
-  margin-right: 20px;
-} */
 
 main {
     padding: 20px 50px;

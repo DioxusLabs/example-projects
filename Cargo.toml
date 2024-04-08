@@ -2,7 +2,6 @@
 members = [
     "dog-app",
     "ecommerce-site",
-    "file-explorer",
     "image_generator_open_ai",
     "ios_demo",
     "jsframework-benchmark",
