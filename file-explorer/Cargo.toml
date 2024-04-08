@@ -24,3 +24,6 @@ resources = ["assets", "images/**/*.png", "secrets/public_key.txt"]
 copyright = "Copyright (c) Jane Doe 2016. All rights reserved."
 category = "Developer Tool"
 short_description = "An example application."
+
+# This package is not part of the workspace to avoid dependancy resolution issues between dioxus 0.4 and 0.5
+[workspace]
