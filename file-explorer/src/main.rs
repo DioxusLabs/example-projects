@@ -6,10 +6,8 @@
 //!
 //! This example is interesting because it's mixing filesystem operations and GUI, which is typically hard for UI to do.
 
-
 use dioxus::prelude::*;
 use log::LevelFilter;
-
 
 fn main() {
     // Init debug
@@ -29,7 +27,7 @@ fn App() -> Element {
             link { rel: "stylesheet", href: "main.css" }
             header {
                 i { class: "material-icons icon-menu", "menu" }
-                h1 { "Files: " "{files.read().current()}" }
+                h1 { "Files: {files.read().current()}" }
                 span { }
                 i { class: "material-icons", onclick: move |_| files.write().go_up(), "logout" }
             }
@@ -47,21 +45,16 @@ fn App() -> Element {
                         h1 { "{path.name}" }
                     }
                 }
-                {
-                    files.read().err.as_ref().map(|err| {
-                        rsx! (
-                            div {
-                                code { "{err}" }
-                                button { onclick: move |_| files.write().clear_err(), "x" }
-                            }
-                        )
-                    })
+                if let Some(err) = files.read().err.as_ref() {
+                    div {
+                        code { "{err}" }
+                        button { onclick: move |_| files.write().clear_err(), "x" }
+                    }
                 }
             }
         }
     }
 }
-
 
 struct File {
     is_directory: bool,
@@ -92,7 +85,8 @@ impl Files {
         log::info!("Reloading path list for {:?}", cur_path);
         let paths = match std::fs::read_dir(&cur_path) {
             Ok(e) => e,
-            Err(err) => { // Likely we're trying to open a file, so let's open it!
+            Err(err) => {
+                // Likely we're trying to open a file, so let's open it!
                 if let Ok(_) = open::that(cur_path) {
                     log::info!("Opened file");
                     return;
@@ -114,13 +108,10 @@ impl Files {
 
         for path in collected {
             let file = path.unwrap();
-            self.path_names
-                .push(
-                    File {
-                        name: file.file_name().to_str().unwrap().to_string(),
-                        is_directory: file.file_type().unwrap().is_dir(),
-                    }
-                );
+            self.path_names.push(File {
+                name: file.file_name().to_str().unwrap().to_string(),
+                is_directory: file.file_type().unwrap().is_dir(),
+            });
         }
         log::info!("path names are {:#?}", self.path_names);
     }
