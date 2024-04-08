@@ -56,6 +56,7 @@ fn App() -> Element {
     }
 }
 
+#[derive(Debug)]
 struct File {
     is_directory: bool,
     name: String,
