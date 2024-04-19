@@ -1,4 +1,4 @@
-/* A simple project to inspire e show how to use Framework Dioxus and query OpenAI to gerenate images.*/
+/* A simple project to inspire e show how to use Framework Dioxus and query OpenAI to generate images.*/
 use dioxus::prelude::*;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
